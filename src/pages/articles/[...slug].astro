@@ -3,6 +3,7 @@ import { formatDate } from "../../lib/utils";
 import Prose from "../../components/prose.astro";
 import { getCollection, render } from "astro:content";
 import InfoLayout from "../../layouts/InfoLayout.astro";
+import TableWrapper from './_components/table_wrapper.astro'
 
 export const prerender = true;
 
@@ -11,7 +12,7 @@ export async function getStaticPaths() {
 
     return articles.map((article) => ({
         params: {
-            slug: article.data.slug
+            slug: article.id
         },
         props: { article },
     }));
@@ -32,17 +33,35 @@ const relatedArticles = allArticles.filter(
         relatedArticle.data.category === article.data.category &&
         relatedArticle.id !== article.id,
 );
+
+const componentOverrides = {
+    table: TableWrapper,
+    // Add any other overrides here if needed (e.g., h2, p, etc.)
+};
 ---
 
 <InfoLayout title={article.data.title} frontmatter={article.data}>
     <section class="p-4 sm:pt-8 sm:px-12 pb-20 min-h-dvh">
         <Prose>
-            <Content />
+            <h1>{article.data.title}</h1>
+             <p class="mt-2 text-sm text-zinc-300">{article.data.snippet}</p>
+             <p class="my-2 text-sm text-zinc-300">Published Date: {new Date(article.data.pubDate).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })}, {article.data.updatedDate  && ` Updated Date: ${new Date(article.data.updatedDate).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })}`}</p>
+
+         {article.data.cover && <img src={`${article.data.cover}`} class="aspect-[16/9] w-full h-96 object-cover" alt="">}   
+            <Content components={componentOverrides}/>
         </Prose>
 
         <p class="my-4 text-sm italic text-zinc-300">
-            This is an excerpt from {`${article.data.author}'s`}
-            <a href={article.data.originalLink} target="_blank" class="underline underline-offset-4 decoration-zinc-100 hover:decoration-white hover:text-white">
+            This is an excerpt from
+            <a href={article.data.originalLink} target="_blank" class="underline underline-offset-4 decoration-zinc-100 hover:decoration-white hover:text-white cursor-pointer">
                 {article.data.title}
             </a>
             article. I highly recommend you give it a read!
@@ -58,13 +77,13 @@ const relatedArticles = allArticles.filter(
                     <ul class="mt-2.5">
                         {relatedArticles.map((article) => (
                             <li class="group">
-                                <a href={`/blog/${article.data.slug}`}>
+                                <a href={`/articles/${article.id}`}>
                                     <h3 class="text-xl text-zinc-50 group-hover:text-white underline underline-offset-2 decoration-transparent group-hover:decoration-zinc-500">
                                         {article.data.title}
                                     </h3>
                                     <p class="mt-0.5 text-sm text-zinc-400">
                                         {formatDate((article.data.pubDate))} 
-                                        &middot; {article.data.author}
+                                        {/* &middot; {article.data.author} */}
                                     </p>
                                 </a>
                             </li>

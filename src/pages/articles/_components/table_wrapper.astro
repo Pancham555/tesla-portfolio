@@ -1,0 +1,16 @@
+<div class="table-responsive">
+    <table>
+        <slot />
+    </table>
+</div>
+
+<style>
+/* We are placing the styles here to ensure they are scoped and loaded with the component,
+  but you could also move this to your main Tailwind CSS file if you prefer.
+*/
+.table-responsive {
+    /* Core Functionality: Enables horizontal scrolling only when needed */
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; 
+}
+</style>

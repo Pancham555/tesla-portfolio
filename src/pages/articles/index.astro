@@ -19,15 +19,16 @@ if (articlesResult?.error) {
 }
 
 const articles = articlesResult?.data?.articles || [];
+
 ---
 
 <InfoLayout>
     <div class="p-4 sm:pt-8 sm:px-12 pb-20 min-h-dvh">
-        <H1> Blog </H1>
+        <H1> Articles </H1>
 
         <ul class="mt-4 flex items-center gap-4">
             <li>
-                <a href="/blog" class={clsx("w-fit px-4 py-1 text-sm bg-transparent rounded-full transition-all duration-300 ease-in-out",
+                <a href="/articles" class={clsx("w-fit px-4 py-1 text-sm bg-transparent rounded-full transition-all duration-300 ease-in-out",
                     selectedCategory === "all" ? "text-white bg-zinc-100/20 outline-2 outline-offset-2 outline-zinc-100/20" : "text-zinc-400 hover:text-zinc-300"
                 )}>
                     All
@@ -38,9 +39,9 @@ const articles = articlesResult?.data?.articles || [];
                 categories.map((category) => (
                     <li>
                         <a
-                            href={`/blog?category=${category.toLowerCase()}`}
+                            href={`/articles?category=${category?.toLowerCase()}`}
                             class={clsx("w-fit px-4 py-1 text-sm bg-transparent rounded-full transition-all duration-300 ease-in-out",
-                                selectedCategory === category.toLowerCase() ? "text-white bg-zinc-100/20 outline-2 outline-offset-2 outline-zinc-100/20" : "text-zinc-400 hover:text-zinc-200"
+                                selectedCategory === category?.toLowerCase() ? "text-white bg-zinc-100/20 outline-2 outline-offset-2 outline-zinc-100/20" : "text-zinc-400 hover:text-zinc-200"
                             )}
                         >
                             {category}
@@ -56,7 +57,7 @@ const articles = articlesResult?.data?.articles || [];
                     <li>
                         <a
                             class="space-y-1 group"
-                            href={`/blog/${article.data.slug}`}
+                            href={`/articles/${article.id}`}
                         >
                             <h2 class="text-xl xl:text-2xl text-zinc-300 group-hover:text-white text-balance font-medium underline group-hover:underline-offset-2 decoration-transparent group-hover:decoration-zinc-500">
                                 {article.data.title}
@@ -66,7 +67,7 @@ const articles = articlesResult?.data?.articles || [];
                             </p>
                             <p class="text-sm text-zinc-500">
                                 {formatDate(article.data.pubDate)} &middot;{" "}
-                                {article.data.author}
+                                {/* {article.data.author} */}
                             </p>
                         </a>
                     </li>
