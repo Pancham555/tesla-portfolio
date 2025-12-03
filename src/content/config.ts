@@ -7,7 +7,7 @@ const articles = defineCollection({
         cover: image().optional(),
         title: z.string(),
         snippet: z.string(),
-        category: z.string().optional(),
+        category: z.string().optional().default(""),
         pubDate: z.coerce.date(),
         originalLink: z.string().url().optional(),
         isDraft: z.boolean().default(false),
