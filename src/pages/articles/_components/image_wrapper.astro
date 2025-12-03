@@ -1,34 +1,12 @@
 ---
-// src/components/ResponsiveImage.astro
-
-/**
- * A responsive image component for Astro/MDX projects.
- *
- * This component ensures images are responsive by default and handles
- * essential attributes like alt text and lazy loading.
- *
- * Usage in MDX: <ResponsiveImage src="./path/to/image.jpg" alt="A descriptive alt text" />
- * Usage in Astro: <ResponsiveImage src={imageUrl} alt="Description" class="rounded-lg shadow-xl" />
- */
-
 interface Props {
   src: string;
   alt: string;
   // Optional width and height for aspect ratio or layout shift prevention
 }
-
-// Set default responsive and styling classes
-const defaultClasses = "max-w-full h-auto rounded-lg shadow-md transition-all duration-300 hover:shadow-xl";
-
-// Merge provided class with default classes
 const { src, alt } = Astro.props;
 ---
 
-<div class={`flex justify-center w-full`}>
-  <img
-    src={src}
-    alt={alt}
-    class={defaultClasses}
-    loading="lazy"
-  />
+<div class=" max-w-full w-auto h-auto">
+  <img src={src} alt={alt} class="max-w-full w-auto h-auto block object-contain"/>
 </div>

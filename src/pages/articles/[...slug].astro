@@ -5,6 +5,7 @@ import { getCollection, render } from "astro:content";
 import InfoLayout from "../../layouts/InfoLayout.astro";
 import TableWrapper from './_components/table_wrapper.astro'
 import ImageWrapper from "./_components/image_wrapper.astro";
+import LinkWrapper from "./_components/link_wrapper.astro";
 
 export const prerender = true;
 
@@ -38,6 +39,7 @@ const relatedArticles = allArticles.filter(
 const componentOverrides = {
     table: TableWrapper,
     img:ImageWrapper,
+    a:LinkWrapper
     // Add any other overrides here if needed (e.g., h2, p, etc.)
 };
 ---
