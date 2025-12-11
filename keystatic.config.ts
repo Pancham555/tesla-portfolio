@@ -1,9 +1,30 @@
-import { config, fields, collection } from '@keystatic/core';
+import { config, fields, collection, singleton} from '@keystatic/core';
 
 export default config({
   storage: {
     kind: "github",
     repo: `Pancham555/tesla-portfolio`
+  },
+  singletons: {
+    about: singleton({
+      label: 'About',
+      format: { contentField: 'content' },
+      entryLayout: 'content',
+      path:"src/content/about/",
+      previewUrl:"",
+      // format: { data: "json" },
+      schema: {
+        title: fields.text({ label: 'Title',validation:{isRequired:true } }),
+        desc: fields.text({label: 'Description', multiline:true, validation:{isRequired:true}, }),
+        content: fields.mdx({ label: 'Content' ,
+          options: {
+            image: {
+              directory: 'public/',
+              publicPath: '/',
+            },
+          },}),
+      }
+    }),
   },
   collections: {
     posts: collection({

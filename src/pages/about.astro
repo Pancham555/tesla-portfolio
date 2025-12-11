@@ -1,25 +1,31 @@
 ---
 import H1 from "../components/h1.astro";
 import InfoLayout from "../layouts/InfoLayout.astro";
+import {Content} from '../content/about/index.mdx'
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../keystatic.config';
+const reader = createReader(process.cwd(), keystaticConfig);
+const data = await reader.singletons.about.read();
 ---
 
 <InfoLayout>
      <div class="p-4 sm:pt-8 sm:px-12 pb-20 min-h-dvh flex flex-col justify-between gap-32">
           <div class="space-y-4 sm:space-y-12">
-               <H1> Get to know Pancham </H1>
+               <H1>{data?.title}</H1>
 
                <p class="text-xl xl:text-2xl text-zinc-500 text-balance">
                     <!-- <a href="https://en.wikipedia.org/wiki/Nikola_Tesla" target="_blank" class="underline underline-offset-4 decoration-zinc-400 hover:text-zinc-50 hover:decoration-zinc-200">
                          Nikola Tesla
                     </a> -->
-                    Pancham Barman is a Finance Analyst from Nalbari, Assam, India,
-                    best known for his pioneering work in the field of research and business administration.
+                    {data?.desc}
                     
                </p>
           </div>
-
-          <div class="space-y-2 text-base sm:text-lg">
-               <h2 class="px-4 text-zinc-400 underline underline-offset-4 decoration-zinc-500">Achievements</h2>
+          <div class="space-y-2 text-base sm:text-lg text-zinc-400">
+               <Content />
+          </div>
+          <!-- <div class="space-y-2 text-base sm:text-lg text-zinc-400"> -->
+               <!-- <h2 class="px-4 text-zinc-400 underline underline-offset-4 decoration-zinc-500">Achievements</h2>
 
                <ul class="px-4 text-zinc-400 list-disc list-outside">
                     <li>Published 1 Research Paper</li>
@@ -36,8 +42,8 @@ import InfoLayout from "../layouts/InfoLayout.astro";
                     <li>B.com, Accounts Major, 8.0 CGPA</li>
                     <li>12th HSLC, AHSEC, Nalbari Commerce College, 80%</li>
                     <li>10th, Matriculation, CBSE, Nalanda Public School, 94.6%</li>
-               </ul>
+               </ul> -->
                
-          </div>
+          <!-- </div> -->
      </div>
 </InfoLayout>
