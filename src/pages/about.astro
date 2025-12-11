@@ -4,6 +4,7 @@ import InfoLayout from "../layouts/InfoLayout.astro";
 import {Content} from '../content/about/index.mdx'
 import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '../../keystatic.config';
+import Prose from "../components/prose.astro";
 const reader = createReader(process.cwd(), keystaticConfig);
 const data = await reader.singletons.about.read();
 ---
@@ -21,9 +22,11 @@ const data = await reader.singletons.about.read();
                     
                </p>
           </div>
-          <div class="space-y-2 text-base sm:text-lg text-zinc-400">
+          <Prose>
                <Content />
-          </div>
+          </Prose>
+          <!-- <div class="space-y-2 text-base sm:text-lg text-zinc-400"> -->
+          <!-- </div> -->
           <!-- <div class="space-y-2 text-base sm:text-lg text-zinc-400"> -->
                <!-- <h2 class="px-4 text-zinc-400 underline underline-offset-4 decoration-zinc-500">Achievements</h2>
 
